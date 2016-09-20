@@ -10,7 +10,17 @@ class Cubes():
     Talserien ska inte ha något slut.
 
     """
-    pass
+    def __init__(self):
+        self.cubes = []
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.cubes < 1
+            raise StopIteration
+        self.cubes = self.cubes ** 3
+        return self.cubes
 
 
 class Primes():
@@ -19,8 +29,16 @@ class Primes():
     Talserien som förväntas börjar alltså: 2, 3, 5, 7, 11, 13, 17, 19, 23, ...
 
     """
-    pass
+    def __init__(self):
+        self.number
 
+    def __iter__(self):
+        return self.number
+
+    def __next__(self):
+        if self.number - 1 == (2 ** 8) *  :
+            return self.number
+        raise StopIteration
 
 class Fibonacci():
     """En iterator som returnerar de berömda fibonacci-talen.
