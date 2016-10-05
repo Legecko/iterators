@@ -1,3 +1,4 @@
+from math import floor, sqrt, factorial
 """Övningar på generators."""
 
 
@@ -10,7 +11,11 @@ def cubes():
     Talserien ska inte ha något slut.
 
     """
-    pass
+    i = 1
+    while True:
+        cube = i ** 3
+        i += 1
+        yield cube
 
 
 def primes():
@@ -19,7 +24,21 @@ def primes():
     Talserien som förväntas börjar alltså: 2, 3, 5, 7, 11, 13, 17, 19, 23, ...
 
     """
-    pass
+    number = 1
+    while True:
+        number += 1
+        if _is_prime(number) == True:
+            yield number
+
+
+def _is_prime(x):
+    root = floor(sqrt(x))
+    i = 2
+    while i <= root:
+        if x % i == 0:
+            return False
+        i += 1
+    return True
 
 
 def fibonacci():
@@ -31,7 +50,12 @@ def fibonacci():
     Alltså börjar serien: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...
 
     """
-    pass
+    number = [0, 1]
+    yield 0
+    yield 1
+    while True:
+        number = number[1], number[0] + number[1]
+        yield number[1]
 
 
 def alphabet():
@@ -44,14 +68,28 @@ def alphabet():
     Nun, Samekh, Ayin, Pe, Tsadi, Qof, Resh, Shin, Tav
 
     """
+    nameList = ['Alef', 'Bet', 'Gimel', 'Dalet', 'He', 'Vav', 'Zayin', 'Het', 'Tet', 'Yod', 'Kaf', 'Lamed', 'Mem',
+    'Nun', 'Samekh', 'Ayin', 'Pe', 'Tsadi', 'Qof', 'Resh', 'Shin', 'Tav']
+    i = -1
+    for names in nameList:
+        i += 1
+        yield nameList[i]
 
-
-def permutations():
+def permutations(original):
     """En generator som returnerar alla permutationer av en inmatad sträng.
 
     Då strängen 'abc' matas in fås: 'abc', 'acb', 'bac', 'bca', 'cba', 'cab'
     """
-    pass
+    original = list(original)
+    amount = 0
+    while amount < factorial(len(original)):
+        amount += 1
+        i = -1
+        k = -2
+        for letter in original:
+            original[k], original[i] = original[i], original[k]
+            original = original[k+1::-1]
+            yield ''.join(original)
 
 
 def look_and_say():

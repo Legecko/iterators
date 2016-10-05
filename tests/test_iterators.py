@@ -30,12 +30,13 @@ def test_primes():
         assert next(p) == prime
 
 
-def test_fibonnaci_is_iterator(self):
+def test_fibonnaci_is_iterator():
     assert '__init__' in dir(Fibonacci)
     iterator = iter(Fibonacci())
     assert '__next__' in dir(iterator)
 
-def test_fibonacci(self):
+
+def test_fibonacci():
     with open('tests/data_fibonacci.json') as file:
         data = json.load(file)
 
@@ -44,13 +45,13 @@ def test_fibonacci(self):
         assert next(f) == fibonacci
 
 
-def test_alphabet_is_iterator(self):
+def test_alphabet_is_iterator():
     assert '__init__' in dir(Alphabet)
     iterator = iter(Alphabet())
     assert '__next__' in dir(iterator)
 
 
-def test_alphabet(self):
+def test_alphabet():
     data = ['Alef', 'Bet', 'Gimel', 'Dalet', 'He', 'Vav', 'Zayin', 'Het',
             'Tet', 'Yod', 'Kaf', 'Lamed', 'Mem', 'Nun', 'Samekh', 'Ayin',
             'Pe', 'Tsadi', 'Qof', 'Resh', 'Shin', 'Tav']
@@ -62,31 +63,39 @@ def test_alphabet(self):
         next(a)
 
 
-def test_permutations_is_iterator(self):
+def test_permutations_is_iterator():
     assert '__init__' in dir(Permutations)
-    iterator = iter(Permutations())
+    iterator = iter(Permutations('abc'))
     assert '__next__' in dir(iterator)
 
 
-def test_permutations(self):
+def test_permutations():
     data = ['abc', 'acb', 'bac', 'cab', 'cba', 'bca']
     result = []
 
-    p = iter(Permutations())
+    p = iter(Permutations('abc'))
     for i in data:
         result.append(next(p))
 
-    assert len(result) == len(data)
+    assert len(result) == len(data)  # Correct number of values
+
+    for value in result:
+        assert value in data
+        data.remove(value)  # No duplicates
+
+
     with pytest.raises(StopIteration):
         next(p)
 
 
+@pytest.mark.skip("not yet done")
 def test_look_and_say_is_iterator():
     assert '__init__' in dir(LookAndSay)
     iterator = iter(LookAndSay())
     assert '__next__' in dir(iterator)
 
 
+@pytest.mark.skip("not yet done")
 def test_look_and_say():
     with open('tests/data_lookandsay.json') as file:
         data = json.load(file)

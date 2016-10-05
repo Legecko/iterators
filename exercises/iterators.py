@@ -1,3 +1,5 @@
+from math import floor, sqrt, factorial
+from itertools import permutations
 """Övningar på iterators."""
 
 
@@ -11,16 +13,14 @@ class Cubes():
 
     """
     def __init__(self):
-        self.cubes = []
+        self.cubes = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.cubes < 1
-            raise StopIteration
-        self.cubes = self.cubes ** 3
-        return self.cubes
+        self.cubes += 1
+        return self.cubes ** 3
 
 
 class Primes():
@@ -30,15 +30,27 @@ class Primes():
 
     """
     def __init__(self):
-        self.number
+        self.number = 1
 
     def __iter__(self):
-        return self.number
+        return self
 
     def __next__(self):
-        if self.number - 1 == (2 ** 8) *  :
-            return self.number
-        raise StopIteration
+        while True:
+            self.number += 1
+            if Primes._is_prime(self.number) == True:
+                return self.number
+
+    @staticmethod
+    def _is_prime(x):
+        root = floor(sqrt(x))
+        i = 2
+        while i <= root:
+            if x % i == 0:
+                return False
+            i += 1
+        return True
+
 
 class Fibonacci():
     """En iterator som returnerar de berömda fibonacci-talen.
@@ -49,7 +61,20 @@ class Fibonacci():
     Alltså börjar serien: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...
 
     """
-    pass
+    def __init__(self):
+        self.number = []
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if len(self.number) < 2:
+            """skickar siffran 0"""
+            self.number.append(len(self.number))
+            """skickar siffran 1 (sista i listan)"""
+            return self.number[-1]
+        self.number = self.number[1], self.number[0] + self.number[1]
+        return self.number[1]
 
 
 class Alphabet():
@@ -62,6 +87,20 @@ class Alphabet():
     Nun, Samekh, Ayin, Pe, Tsadi, Qof, Resh, Shin, Tav
 
     """
+    def __init__(self):
+        self.nameList = ['Alef', 'Bet', 'Gimel', 'Dalet', 'He', 'Vav', 'Zayin', 'Het', 'Tet', 'Yod', 'Kaf', 'Lamed', 'Mem',
+        'Nun', 'Samekh', 'Ayin', 'Pe', 'Tsadi', 'Qof', 'Resh', 'Shin', 'Tav']
+        self.idx = -1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.idx += 1
+        try:
+            return self.nameList[self.idx]
+        except IndexError:
+            raise StopIteration
 
 
 class Permutations():
@@ -69,7 +108,37 @@ class Permutations():
 
     Då strängen 'abc' matas in fås: 'abc', 'acb', 'bac', 'bca', 'cba', 'cab'
     """
-    pass
+    def __init__(self, string):
+        self.original = list(string)
+        self.i = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.i >= factorial(len(self.original)):
+            raise StopIteration
+        self.i += 1
+
+        i = -1
+        k = -2
+#        for letter in self.original:
+        self.original[k], self.original[i] = self.original[i], self.original[k]
+        self.original = self.original[k+1::-1]
+        return ''.join(self.original)
+
+    @staticmethod
+    def permute(original):
+       words = []
+       words.append(original)
+       i = -1
+       k = -2
+       for letter in original:
+           original[k], original[i] = original[i], original[k]
+           original = original[k+1::-1]
+           words.append(original)
+           return words
+
 
 
 class LookAndSay():

@@ -25,7 +25,7 @@ def test(with_coverage, no_html, no_report, verbose, only):
         COV.start()
 
     # Decide what arguments to use.
-    args = []
+    args = ['-s']
     if only:
         for name in only:
             args.append('tests/test_{}.py'.format(name))
